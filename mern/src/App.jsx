@@ -1,10 +1,10 @@
+import * as React from 'react'
+import Board from '~/pages/Boards/_id'
 
-import Button from '@mui/material/Button'
 function App() {
   return (
     <>
-      <div className="">heheh</div>
-      <Button variant="contained">Hello world</Button>
+      <Board></Board>
     </>
   )
 }
