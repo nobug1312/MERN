@@ -16,7 +16,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import SvgIcon from "@mui/material/SvgIcon";
 import { useState } from "react";
 import { ReactComponent as TrelloIcon } from "~/assets/trello.svg";
-import ModeSelect from "../ModeSelect";
+import ModeSelect from "../ModeSelect/ModeSelect";
 import Profile from "./Menus/Profile";
 import Recent from "./Menus/Recent";
 import Starred from "./Menus/Starred";
