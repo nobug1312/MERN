@@ -1,0 +1,1 @@
+config "type" : "module" -> hỗ trợ import abc from 'xyz'S
