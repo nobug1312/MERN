@@ -35,3 +35,8 @@
   ]
   }
   => từ đó khi nào có 2 nhiều cấp như ../../ thì nên sử dụng ~/
+
+# DND
+
+- transform: CSS.Translate.toString(transform), // nếu dùng CSS.Transform.toString(transform) sẽ bị lỗi scale theo chiều dọc từ đó nên dùng translate
+- nên sử dụng cả mouseSensor và TouchSensor để cho ra trãi nghiệm tốt nhất trên mọi thiết bị

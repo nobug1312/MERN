@@ -1,3 +1,5 @@
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import AddCardIcon from "@mui/icons-material/AddCard";
 import Cloud from "@mui/icons-material/Cloud";
 import ContentCopy from "@mui/icons-material/ContentCopy";
@@ -14,11 +16,13 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
 import theme from "~/theme";
+import { mapOrder } from "~/utils/sort";
 import ListCard from "./ListCards/ListCard";
 
-function Column() {
+function Column({ column }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const orderedCard = mapOrder(column?.cards, column?.cardOrderIds, "_id");
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -27,6 +31,15 @@ function Column() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: column._id, data: { ...column } });
+
+  const dndKitColumnStyle = {
+    transform: CSS.Translate.toString(transform), // nếu dùng CSS.Transform.toString(transform) sẽ bị lỗi scale theo chiều dọc
+    transition,
+  };
+
   return (
     <Box
       sx={{
@@ -41,6 +54,10 @@ function Column() {
         ml: 2,
         borderRadius: "6px",
       }}
+      ref={setNodeRef}
+      style={dndKitColumnStyle}
+      {...attributes}
+      {...listeners}
     >
       {/* header */}
       <Box
@@ -56,7 +73,7 @@ function Column() {
           variant="h6"
           sx={{ fontWeight: "bold", cursor: "pointer", fontSize: "1rem" }}
         >
-          Column Title
+          {column?.title}
         </Typography>
         <Box>
           <Tooltip>
@@ -120,7 +137,7 @@ function Column() {
         </Box>
       </Box>
       {/* List card */}
-      <ListCard></ListCard>
+      <ListCard cards={orderedCard}></ListCard>
       {/* footer */}
       <Box
         sx={{

@@ -6,6 +6,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import VpnLockIcon from "@mui/icons-material/VpnLock";
 import { Avatar, AvatarGroup, Box, Button, Chip, Tooltip } from "@mui/material";
 import theme from "~/theme";
+import { capitalizeFirstLetter } from "~/utils/formatter";
 const MENU_STYLE = {
   color: "white",
   bgcolor: "transparent",
@@ -20,7 +21,7 @@ const MENU_STYLE = {
   },
 };
 
-function BoardBar() {
+function BoardBar({ board }) {
   return (
     <Box
       px={2}
@@ -42,13 +43,13 @@ function BoardBar() {
         <Chip
           icon={<DashboardIcon />}
           clickable
-          label="Kvi Stack Board"
+          label={board?.title}
           sx={MENU_STYLE}
         />
         <Chip
           icon={<VpnLockIcon />}
           clickable
-          label="Public/Private workspace"
+          label={capitalizeFirstLetter(board?.type)}
           sx={MENU_STYLE}
         />
         <Chip
