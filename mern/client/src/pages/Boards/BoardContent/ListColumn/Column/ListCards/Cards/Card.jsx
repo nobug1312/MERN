@@ -6,8 +6,25 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { Card as MuiCard } from "@mui/material";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 function Card({ card }) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: card._id, data: { ...card } });
+
+  const dndKitCardStyle = {
+    transform: CSS.Translate.toString(transform), // nếu dùng CSS.Transform.toString(transform) sẽ bị lỗi scale theo chiều dọc
+    transition,
+    opacity: isDragging ? 0.5 : undefined,
+    border: isDragging ? "1px solid green" : undefined,
+  };
   const shouldShowCardAction = () => {
     return (
       !!card?.memberIds?.length ||
@@ -22,6 +39,10 @@ function Card({ card }) {
         boxShadow: "0 1px 1px rgba(0, 0,0,0.2)",
         overflow: "unset",
       }}
+      ref={setNodeRef}
+      style={dndKitCardStyle}
+      {...attributes}
+      {...listeners}
     >
       {card?.cover && <CardMedia sx={{ height: 140 }} image={card?.cover} />}
 
